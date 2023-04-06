@@ -1,0 +1,32 @@
+*{
+  box-sizing: border-box;
+}
+
+:root {
+  --keyW: 90px;
+  --keyH: calc(1.2 * var(--keyW));
+}
+
+body {
+  background: black;
+  color: white;
+}
+
+#keyboard {
+  display: grid;
+  grid-template-columns: repeat(3,var(--keyW)) ;
+  grid-template-rows: repeat(4,var(--keyH));
+  gap: 10px;
+  justify-content: center;
+}
+
+.key {
+  font-size: 30px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border-width: 2px 4px 4px 2px;
+  border-color: white;
+  border-style: solid;
+}
+
