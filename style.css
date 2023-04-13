@@ -30,3 +30,6 @@ body {
   border-style: solid;
 }
 
+.key:hover {
+  border-width: 4px 2px 2px 4px;
+}
