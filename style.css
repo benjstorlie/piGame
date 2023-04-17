@@ -50,7 +50,3 @@ body {
   transform:translate(3px, 3px);
   box-shadow: 1px 1px #666;
 }
-
-.key:hover {
-  border-width: 4px 2px 2px 4px;
-}
