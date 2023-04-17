@@ -12,6 +12,12 @@ body {
   color: white;
 }
 
+#pi {
+  height: var(--keyH);
+  font-size: 48px;
+}
+
+
 #keyboard {
   display: grid;
   grid-template-columns: repeat(3,var(--keyW)) ;
@@ -25,8 +31,23 @@ body {
   display:flex;
   justify-content:center;
   align-items:center;
-  border-width: 2px 4px 4px 2px;
+  cursor: pointer;
+  border-width: 2px;
+  border-radius: 3px;
   border-color: white;
   border-style: solid;
+  background: black;
+  color: white;
+  box-shadow: 4px 4px #666;
+}
+
+.key:hover {
+  background-color: #333;
+}
+
+.key:active {
+  background-color: #333;
+  transform:translate(3px, 3px);
+  box-shadow: 1px 1px #666;
 }
 

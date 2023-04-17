@@ -15,7 +15,9 @@ $(function() {
   const keyboard = $("#keyboard");
 
   for (i=0; i<10; i++) {
+    
     keyboard.append(addKey(i));
+
   }
   const backButton = $("<button>").attr("id","back-button").addClass("key").css("order","9");
   backButton.click(function() {console.log("back")});
@@ -23,7 +25,7 @@ $(function() {
 
   $(document).keydown( function(event) {
     if (!isNaN(event.key)) {$("#key"+event.key).click()}; 
-    console.log(event.key);
+    console.log("keydown "+event.key);
   })
 });
 
@@ -37,6 +39,7 @@ function addKey(i) {
   key.click(function() {
     digit = i;
     console.log("digit="+digit);
+    $("#pi").prepend($("<span>"+i+"</span>"));
   })
 
   return key;
