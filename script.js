@@ -24,12 +24,23 @@ $(function() {
   keyboard.append(backButton);
 
   $(document).keydown( function(event) {
-    if (!isNaN(event.key)) {$("#key"+event.key).click()}; 
-    console.log("keydown "+event.key);
+    const k=event.key;
+    if (!isNaN(k)) {
+      $("#key"+k).click();
+      $("#key"+k).addClass("key-down");
+    }
+    console.log("keydown "+k);
+  });
+
+  $(document).keyup( function(event) {
+    if (!isNaN(event.key)) {
+      $("#key"+event.key).removeClass("key-down");
+    }
   });
 });
 
 function addKey(i) {
+  // Returns a jQuery <div> element to be a clickable button for the number i
   const key=$("<div>");
   key.addClass("key");
   key.css("order",orderArray[i]);
