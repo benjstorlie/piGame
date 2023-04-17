@@ -51,7 +51,12 @@ function addKey(i) {
   key.click(function() {
     digit = i;
     console.log("digit="+digit);
-    $("#pi").prepend($("<span>"+i+"</span>"));
+    const piEl = $("#pi");
+    piEl.addClass("translate");
+    setTimeout(function() {
+      piEl.append($("<span class='pi-digit'>"+i+"</span>"));
+      piEl.removeClass("translate");
+    },500);
   })
 
   return key;

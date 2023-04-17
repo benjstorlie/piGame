@@ -5,6 +5,8 @@
 :root {
   --keyW: 90px;
   --keyH: calc(1.2 * var(--keyW));
+  --digitW: 40px;
+  --shift:calc(- var(--digitW));
 }
 
 body {
@@ -14,9 +16,26 @@ body {
 
 #pi {
   height: var(--keyH);
+  width: 75%;
   font-size: 48px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  margin: auto;
+  position: relative;
 }
 
+.translate {
+  transform: translateX(-40px);
+  transition-property: all;
+  transition-duration: 500ms;
+}
+
+.pi-digit {
+  flex-basis: var(--digitW);
+  flex-grow: 0;
+  flex-shrink: 0;
+}
 
 #keyboard {
   display: grid;
