@@ -15,20 +15,25 @@ $(function() {
   const keyboard = $("#keyboard");
 
   for (i=0; i<10; i++) {
+    
     keyboard.append(addKey(i));
+
   }
   const backButton = $("<button>").attr("id","back-button").addClass("key").css("order","9");
   backButton.click(function() {console.log("back")});
   keyboard.append(backButton);
 
-  $(document).click(debugBorder);
+  $(document).keydown( function(event) {
+    if (!isNaN(event.key)) {$("#key"+event.key).click()}; 
+    console.log("keydown "+event.key);
+  });
 });
 
 function addKey(i) {
   const key=$("<div>");
   key.addClass("key");
   key.css("order",orderArray[i]);
-  key.attr("id","key"+i)
+  key.attr("id","key"+i);
   key.attr("role","button");
   key.text(keyboardString[i]);
 
