@@ -16,15 +16,45 @@ body {
   color: white;
 }
 
+
+
 #pi {
-  height: var(--keyH);
-  width: 75%;
-  font-size: 48px;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: repeat(8,var(--digitW));
+  grid-template-rows: var(--keyH);
+  font-size: 60px;
   margin: auto;
   position: relative;
+  justify-content: center;
+  left: calc( var(--digitW)/2);
+}
+
+/* All the pi-digits */
+#pi div {
+  width: var(--digitW);
+  position:relative;
+  text-align: center;
+}
+
+#pi>div:nth-child(1),
+#pi>div:nth-child(2),
+#pi>div:nth-child(3) {
+  color: #ffa74e;
+}
+
+#pi>div:nth-child(4) {
+  color: #fff;
+}
+
+#pi>div:nth-child(5),
+#pi>div:nth-child(6),
+#pi>div:nth-child(7) {
+  color: #4e4eff;
+}
+
+#pi>div:nth-child(8) {
+  visibility: hidden;
+  color: #4e4eff;
 }
 
 .translate {
@@ -33,27 +63,12 @@ body {
   transition-duration: 200ms;
 }
 
-.pi-digit {
-  flex-basis: var(--digitW);
-  flex-grow: 0;
-  flex-shrink: 0;
-  text-align: center;
-  color: #ffa74e;
-}
-
-#three {
-  position: relative;
-}
-
-#decimal {
+/* use div>div> to increase the specifici */
+#pi>div>#decimal {
   width: var(--digitW);
   position:absolute;
   top:0px;
   left: calc( var(--digitW)/2);
-}
-
-#question {
-  color: #4e4eff;
 }
 
 .hidden {
