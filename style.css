@@ -55,7 +55,11 @@ body {
 }
 
 .hidden {
-  display: hidden;
+  visibility: hidden;
+}
+
+.error {
+  color: red;
 }
 
 #keyboard {
