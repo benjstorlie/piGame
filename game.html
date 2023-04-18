@@ -9,13 +9,20 @@
   </head>
   <body>
     <header><h1>Pi Game</h1></header>
-    <div id="menu" class="board">
-      <div id="practice-button" class="key">Practice</div>
-      <div id="game-button" class="key">Play Game</div>
-      <div id="view-pi-button" class="key">View Pi</div>
+
+    <div id="pi" class="translate">
+      <div class='pi-digit' id="three">
+        3
+        <div id="decimal">.</div>
+      </div>
+      <!-- new digits are inserted here -->
+      <div class='pi-digit' id="question">?</div>
+    </div>
+    <div id="keyboard" class="board">
+      <div id="back-button" class="key">Back</div>
     </div>
     <!-- JQuery Script -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="menu.js"></script>
+    <script src="game.js"></script>
   </body>
 </html>

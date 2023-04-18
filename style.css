@@ -5,6 +5,8 @@
 :root {
   --keyW: 90px;
   --keyH: calc(1.2 * var(--keyW));
+  --gridGap: 10px;
+  --menuW: calc(3* var(--keyW) + 2* var(--gridGap));
   --digitW: 40px;
   --shift:calc(- var(--digitW));
 }
@@ -62,12 +64,19 @@ body {
   color: red;
 }
 
-#keyboard {
+.board {
   display: grid;
-  grid-template-columns: repeat(3,var(--keyW)) ;
   grid-template-rows: repeat(4,var(--keyH));
   gap: 10px;
   justify-content: center;
+}
+
+#keyboard {
+  grid-template-columns: repeat(3,var(--keyW)) ;
+}
+
+#menu {
+  grid-template-columns: var(--menuW) ;
 }
 
 .key {
@@ -93,5 +102,9 @@ body {
   background-color: #333;
   transform:translate(3px, 3px);
   box-shadow: 1px 1px #666;
+}
+
+#back-button {
+  order: 9;
 }
 

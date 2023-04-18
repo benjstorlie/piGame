@@ -17,13 +17,12 @@ $(function() {
   
 
   for (i=0; i<10; i++) {
-    
     keyboard.append(addKey(i));
-
   }
-  const backButton = $("<button>").attr("id","back-button").addClass("key").css("order","9");
-  backButton.click(function() {console.log("back")});
-  keyboard.append(backButton);
+  
+  $("#back-button").click(function() {
+    window.location.href="./index.html";
+  });
 
   $(document).keydown( function(event) {
     const k=event.key;
