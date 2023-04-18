@@ -4,8 +4,11 @@ $(function() {
   const gameButton = $("#game-button");
   //const viewPiButton = $("view-pi-button");
 
-  gameButton.click(function() {
+  $("#game-button").click(function() {
     window.location.href="./game.html";
+  })
+  $("#practice-button").click(function() {
+    window.location.href="./practice.html";
   })
 
 });

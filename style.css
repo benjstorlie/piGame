@@ -1,5 +1,7 @@
 *{
   box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
 }
 
 :root {
@@ -14,18 +16,23 @@
 body {
   background: black;
   color: white;
+  width: 100%;
 }
 
-
+header {
+  padding: 20px;
+}
 
 #pi {
   display: grid;
   grid-template-columns: repeat(8,var(--digitW));
   grid-template-rows: var(--keyH);
   font-size: 60px;
-  margin: auto;
+  margin-left: calc(50% - 4 * var(--digitW));
+  margin-right: calc(50% - 4 * var(--digitW));;
   position: relative;
   justify-content: center;
+  align-items: center;
   left: calc( var(--digitW)/2);
 }
 
@@ -36,26 +43,25 @@ body {
   text-align: center;
 }
 
-#pi>div:nth-child(1),
-#pi>div:nth-child(2),
-#pi>div:nth-child(3) {
+.orange {
   color: #ffa74e;
 }
 
-#pi>div:nth-child(4) {
+.white {
+  font-size: 80px;
   color: #fff;
 }
 
-#pi>div:nth-child(5),
-#pi>div:nth-child(6),
-#pi>div:nth-child(7) {
+.blue {
   color: #4e4eff;
 }
 
-#pi>div:nth-child(8) {
-  visibility: hidden;
-  color: #4e4eff;
+/* JQuery's ":hidden" selector is not the same as CSS visibility:hidden
+See https://api.jquery.com/hidden-selector/ */
+.hidden {
+  display: none;
 }
+
 
 .translate {
   transform: translateX(-40px);
@@ -63,7 +69,7 @@ body {
   transition-duration: 200ms;
 }
 
-/* use div>div> to increase the specifici */
+/* use div>div> to increase the specificity */
 #pi>div>#decimal {
   width: var(--digitW);
   position:absolute;
@@ -71,12 +77,11 @@ body {
   left: calc( var(--digitW)/2);
 }
 
-.hidden {
-  visibility: hidden;
-}
-
-.error {
-  color: red;
+#error-box {
+  height: 70px;
+  font-size: 30px;
+  text-align: center;
+  color: #ff4e4e;
 }
 
 .board {
