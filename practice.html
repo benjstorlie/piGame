@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Pi Game Practice</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Pi Game Practice</h1>
+    </header>
+    <main>
+      <div id="pi">
+        <div class="orange"> </div>
+        <div class="orange"> </div>
+        <div class="orange"> </div>
+        <div class="white">
+          3
+          <div id="decimal">.</div> <!-- decimal has position: absolute -->
+        </div>
+        <div class="blue">1</div> <!-- center -->
+        <div class="blue">4</div>
+        <div class="blue">1</div>
+        <div class="blue hidden">5</div> <!-- hidden -->
+      </div>
+      <div id="error-box">
+      </div>
+
+      <div id="keyboard" class="board">
+        
+      </div>
+  </main>
+    <!-- JQuery Script -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="game.js"></script>
+  </body>
+</html>

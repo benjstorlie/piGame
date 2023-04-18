@@ -1,10 +1,14 @@
 *{
   box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
 }
 
 :root {
   --keyW: 90px;
   --keyH: calc(1.2 * var(--keyW));
+  --gridGap: 10px;
+  --menuW: calc(3* var(--keyW) + 2* var(--gridGap));
   --digitW: 40px;
   --shift:calc(- var(--digitW));
 }
@@ -12,18 +16,52 @@
 body {
   background: black;
   color: white;
+  width: 100%;
+}
+
+header {
+  padding: 20px;
 }
 
 #pi {
-  height: var(--keyH);
-  width: 75%;
-  font-size: 48px;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-end;
-  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(8,var(--digitW));
+  grid-template-rows: var(--keyH);
+  font-size: 60px;
+  margin-left: calc(50% - 4 * var(--digitW));
+  margin-right: calc(50% - 4 * var(--digitW));;
   position: relative;
+  justify-content: center;
+  align-items: center;
+  left: calc( var(--digitW)/2);
 }
+
+/* All the pi-digits */
+#pi div {
+  width: var(--digitW);
+  position:relative;
+  text-align: center;
+}
+
+.orange {
+  color: #ffa74e;
+}
+
+.white {
+  font-size: 80px;
+  color: #fff;
+}
+
+.blue {
+  color: #4e4eff;
+}
+
+/* JQuery's ":hidden" selector is not the same as CSS visibility:hidden
+See https://api.jquery.com/hidden-selector/ */
+.hidden {
+  display: none;
+}
+
 
 .translate {
   transform: translateX(-40px);
@@ -31,43 +69,34 @@ body {
   transition-duration: 200ms;
 }
 
-.pi-digit {
-  flex-basis: var(--digitW);
-  flex-grow: 0;
-  flex-shrink: 0;
-  text-align: center;
-  color: #ffa74e;
-}
-
-#three {
-  position: relative;
-}
-
-#decimal {
+/* use div>div> to increase the specificity */
+#pi>div>#decimal {
   width: var(--digitW);
   position:absolute;
   top:0px;
   left: calc( var(--digitW)/2);
 }
 
-#question {
-  color: #4e4eff;
+#error-box {
+  height: 70px;
+  font-size: 30px;
+  text-align: center;
+  color: #ff4e4e;
 }
 
-.hidden {
-  visibility: hidden;
-}
-
-.error {
-  color: red;
-}
-
-#keyboard {
+.board {
   display: grid;
-  grid-template-columns: repeat(3,var(--keyW)) ;
   grid-template-rows: repeat(4,var(--keyH));
   gap: 10px;
   justify-content: center;
+}
+
+#keyboard {
+  grid-template-columns: repeat(3,var(--keyW)) ;
+}
+
+#menu {
+  grid-template-columns: var(--menuW) ;
 }
 
 .key {
@@ -93,5 +122,9 @@ body {
   background-color: #333;
   transform:translate(3px, 3px);
   box-shadow: 1px 1px #666;
+}
+
+#back-button {
+  order: 9;
 }
 
