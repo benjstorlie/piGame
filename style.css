@@ -27,14 +27,35 @@ body {
 
 .translate {
   transform: translateX(-40px);
-  transition-property: all;
-  transition-duration: 500ms;
+  transition-property: transform;
+  transition-duration: 200ms;
 }
 
 .pi-digit {
   flex-basis: var(--digitW);
   flex-grow: 0;
   flex-shrink: 0;
+  text-align: center;
+  color: #ffa74e;
+}
+
+#three {
+  position: relative;
+}
+
+#decimal {
+  width: var(--digitW);
+  position:absolute;
+  top:0px;
+  left: calc( var(--digitW)/2);
+}
+
+#question {
+  color: #4e4eff;
+}
+
+.hidden {
+  display: hidden;
 }
 
 #keyboard {
@@ -69,3 +90,4 @@ body {
   transform:translate(3px, 3px);
   box-shadow: 1px 1px #666;
 }
+

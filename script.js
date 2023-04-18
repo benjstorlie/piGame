@@ -1,5 +1,4 @@
-pi = "3.14159265358979237218";
-
+const pi = "3.14159265358979237218";
 
 // Initialize the current index.
 let index = 0;
@@ -13,6 +12,9 @@ const orderArray = [10,6,7,8,3,4,5,0,1,2,11,9];
 
 $(function() {
   const keyboard = $("#keyboard");
+  const piEl = $("#pi");
+  const questionMark = $("#question");
+  
 
   for (i=0; i<10; i++) {
     
@@ -37,27 +39,51 @@ $(function() {
       $("#key"+event.key).removeClass("key-down");
     }
   });
+
+
+  function addKey(i) {
+    // Returns a jQuery <div> element to be a clickable button for the number i
+    const key=$("<div>");
+    key.addClass("key");
+    key.css("order",orderArray[i]);
+    key.attr("id","key"+i);
+    key.attr("role","button");
+    key.text(keyboardString[i]);
+
+    key.click(function() {
+      digit = i;
+      console.log("digit="+digit);
+      const newDigit = $("<div class='pi-digit'>"+i+"</div>");
+
+      // happens simultaneously
+      questionMark.before(newDigit);
+      shift();
+    })
+
+    return key;
+  }
+
+  function shift() {
+    index++;
+    questionMark.addClass("hidden");
+    piEl.removeClass("translate");
+
+    questionMark.fadeIn(200,function(){
+      questionMark.removeClass("hidden");
+      piEl.addClass("translate");
+    });
+  }
+
+  function isMatch(i) {
+    if (i==pi[index]) {
+      index++;
+      return true;
+    }
+    return false;
+  }
+
+
+
+
+
 });
-
-function addKey(i) {
-  // Returns a jQuery <div> element to be a clickable button for the number i
-  const key=$("<div>");
-  key.addClass("key");
-  key.css("order",orderArray[i]);
-  key.attr("id","key"+i);
-  key.attr("role","button");
-  key.text(keyboardString[i]);
-
-  key.click(function() {
-    digit = i;
-    console.log("digit="+digit);
-    const piEl = $("#pi");
-    piEl.addClass("translate");
-    setTimeout(function() {
-      piEl.append($("<span class='pi-digit'>"+i+"</span>"));
-      piEl.removeClass("translate");
-    },500);
-  })
-
-  return key;
-}
