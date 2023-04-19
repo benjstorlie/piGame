@@ -22,10 +22,14 @@ $(function() {
   const practice = ($("h1").text()=="Pi Game Practice");
   const keyboard = $("#keyboard");
   const piEl = $("#pi");
+  const piDigits = piEl.children();
   const errorBox = $("#error-box");
   
   $("header").append($("<p>You can click the buttons or use your keyboard!</p>"));
-  $("header").append($("<p>Don't go faster than "+speed+"ms per digit though, for now!</p>"));
+
+  piDigits.slice(0,3).css("color","#ffa74e");
+  piDigits.slice(3,4).css("color","#ffffff").css("font-size","80px");
+  piDigits.slice(4  ).css("color","#4e4eff");
 
   for (i=0; i<10; i++) {
     keyboard.append(addKey(i));
@@ -67,35 +71,44 @@ $(function() {
     key.text(keyboardString[i]);
 
     key.click(function() {
+      // finish any running animations
+      piDigits.add(piEl).finish();
 
       if ((pi.equals(i))) {
         pi.plus();
-        // center pi-digit change to orange
-        $("#pi>.white").addClass("orange").removeClass("white");
-        // center right pi-digit change to i and change to white
-        if (practice) {
-          $("#pi>.blue").first().addClass("white").removeClass("blue");
-        } else {
-          $("#pi>.blue").first().text(i).addClass("white").removeClass("blue");
-        }
-        // shift (add class translate from piEl)
-        piEl.addClass("translate");
-          // fade in right-most question mark
-          $("#pi>.blue").last().fadeIn(speed);
-          // fadeout left-most pi-digit
-          $("#pi>.orange").first().fadeOut(speed, function(){
+
+        // shift piEl
+        piEl.animate({left: "-20px"},speed);
+        piDigits.slice(3,4)
+          .addClass("orange").removeClass("white");
+        piDigits.slice(4,5)
+          .addClass("white").removeClass("blue");
+        // fade in right-most question mark
+        piDigits.last()
+          .fadeIn(speed);
+        // fadeout left-most pi-digit
+        piDigits.first()
+          .fadeOut(speed, function(){
+          // ***everything following the animations***
+
             // remove left-most now hidden pi-digit
-            $("#pi>.orange").first().remove();
+            piDigits.first().remove();
             // add hidden question mark to right
             if (practice) {
-              piEl.append($("<div class='blue hidden'></div>").text(pi.nextDigit(3)));
+              piEl.append($("<div>")
+                .addClass("blue hidden")
+                .text(pi.nextDigit(3))
+              );
             } else {
-              piEl.append($("<div class='blue hidden'>?</div>"));
+              piEl.append($("<div>")
+                .addClass("blue hidden")
+                .text("?")
+              );
+              piDigits.slice(3,4).text(i);
             }
-            
-            // remove class translate from piEl
-            piEl.removeClass("translate");
-          });
+            // reset element style attribute
+            piEl.attr("style","");
+        });
       } else {
         // add error mark to error-box
         errorBox.append("<span>✗</span>");
