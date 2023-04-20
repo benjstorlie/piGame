@@ -10,7 +10,7 @@
   --gridGap: 10px;
   --menuW: calc(3* var(--keyW) + 2* var(--gridGap));
   --digitW: 40px;
-  --shift:calc(- var(--digitW));
+  --shift: calc(- var(--digitW)/2);
 }
 
 body {
@@ -35,6 +35,7 @@ header {
   left: 20px;
 }
 
+
 /* All the pi-digits */
 #pi div {
   width: var(--digitW);
@@ -43,6 +44,7 @@ header {
 }
 
 .orange {
+  font-size: inherit;
   color: #ffa74e;
 }
 
@@ -52,6 +54,7 @@ header {
 }
 
 .blue {
+  font-size: inherit;
   color: #4e4eff;
 }
 

@@ -22,14 +22,12 @@ $(function() {
   const practice = ($("h1").text()=="Pi Game Practice");
   const keyboard = $("#keyboard");
   const piEl = $("#pi");
-  const piDigits = piEl.children();
+  
   const errorBox = $("#error-box");
   
   $("header").append($("<p>You can click the buttons or use your keyboard!</p>"));
 
-  piDigits.slice(0,3).css("color","#ffa74e");
-  piDigits.slice(3,4).css("color","#ffffff").css("font-size","80px");
-  piDigits.slice(4  ).css("color","#4e4eff");
+  piDigitsStylingInit()
 
   for (i=0; i<10; i++) {
     keyboard.append(addKey(i));
@@ -72,20 +70,24 @@ $(function() {
 
     key.click(function() {
       // finish any running animations
+      const piDigits = piEl.children();
       piDigits.add(piEl).finish();
+      console.log(piDigits);
 
       if ((pi.equals(i))) {
+        // increment pi to next digit
         pi.plus();
 
         // shift piEl
-        piEl.animate({left: "-20px"},speed);
+        piEl.animate({left: '-20px'},speed);
         piDigits.slice(3,4)
-          .addClass("orange").removeClass("white");
+          .switchClass("white","orange",speed);
         piDigits.slice(4,5)
-          .addClass("white").removeClass("blue");
+          .switchClass("blue","white",speed);
         // fade in right-most question mark
         piDigits.last()
-          .fadeIn(speed);
+          .fadeIn(speed)
+          .removeClass("hidden");
         // fadeout left-most pi-digit
         piDigits.first()
           .fadeOut(speed, function(){
@@ -117,6 +119,21 @@ $(function() {
     })
 
     return key;
+  }
+
+  function piDigitsStylingInit() {
+    const piDigits = piEl.children();
+    piDigits.slice(0,3)
+      .addClass("orange");
+      //.css("color","#ffa74e");
+    piDigits.slice(3,4)
+      .addClass("white");
+      //.css("color","#ffffff").css("font-size","80px");
+    piDigits.slice(4  )
+      .addClass("blue");
+      //.css("color","#4e4eff");
+    piDigits.last()
+      .addClass("hidden");
   }
 
 });
