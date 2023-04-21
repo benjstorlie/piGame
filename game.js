@@ -12,6 +12,7 @@ let pi = {
 }
 
 const speed=200;
+let finished=true; //Boolean for animations
 
 // This is the a string representing the keys on the keyboard in order
 const keyboardString = "0123456789";
@@ -70,70 +71,85 @@ $(function() {
 
     key.click(function() {
       // finish any running animations
-      const piDigits = piEl.children();
-      piDigits.add(piEl).finish();
-      console.log(piDigits);
+      piEl.children().add(piEl).finish();
 
-      if ((pi.equals(i))) {
-        // increment pi to next digit
-        pi.plus();
+      if (finished){
+        finished=false;
+        if ((pi.equals(i))) {
+          piShift(i);
+        } else {
 
-        // shift piEl
-        piEl.animate({left: '-20px'},speed);
-        piDigits.slice(3,4)
-          .switchClass("white","orange",speed);
-        piDigits.slice(4,5)
-          .switchClass("blue","white",speed);
-        // fade in right-most question mark
-        piDigits.last()
-          .fadeIn(speed)
-          .removeClass("hidden");
-        // fadeout left-most pi-digit
-        piDigits.first()
-          .fadeOut(speed, function(){
-          // ***everything following the animations***
-
-            // remove left-most now hidden pi-digit
-            piDigits.first().remove();
-            // add hidden question mark to right
-            if (practice) {
-              piEl.append($("<div>")
-                .addClass("blue hidden")
-                .text(pi.nextDigit(3))
-              );
-            } else {
-              piEl.append($("<div>")
-                .addClass("blue hidden")
-                .text("?")
-              );
-              piDigits.slice(3,4).text(i);
-            }
-            // reset element style attribute
-            piEl.attr("style","");
-        });
-      } else {
-        // add error mark to error-box
-        errorBox.append("<span>✗</span>");
+          // add error mark to error-box
+          errorBox.append("<span>✗</span>");
+        }
+        finished=true;
       }
-      
     })
 
     return key;
   }
 
+  function piShift(i) {
+    // Shift all the digits over, with change in style, and text.
+    const piDigits = piEl.children();
+    piFontSize = piEl.css("font-size");
+
+    // increment pi to next digit
+    pi.plus();
+
+    // add new invisible digit to right
+    newDigit = $("<div>").css("color","#4e4eff").css("display","none")
+    if (practice) {
+      newDigit.text(pi.nextDigit(3));
+    } else {
+      newDigit.text("?");
+      piDigits.eq(4).text(i);
+    }
+    piEl.append(newDigit);
+
+    // Make everything happen with the JQuery .animate method.
+
+    // Shift piEl -- the leftmost digit is still a child
+    piEl
+      .animate({left: '-20px'},speed);
+    // Change colors
+    // Orange #ffa74e = rgb(100,63,31 )
+    // Blue   #4e4eff = rgb(63 ,63,100)
+    piDigits.eq(3)
+      .animate({color: "#ffa74e", fontSize: piFontSize},speed);
+    piDigits.eq(4)
+      .animate({color: "#ffffff", fontSize: "80px"},speed);
+    // fade in right-most question mark
+    piDigits.last()
+      .fadeIn(speed);
+    // fadeout left-most pi-digit
+    piDigits.first()
+      .fadeOut(speed, piReset);
+  }
+
+  function piReset() {
+    // functions to follow the animations
+    // remove left-most now hidden pi-digit
+    piEl.children().first().remove();
+
+    // reset element style attribute
+    piEl.attr("style","");
+  }
+
   function piDigitsStylingInit() {
     const piDigits = piEl.children();
     piDigits.slice(0,3)
-      .addClass("orange");
-      //.css("color","#ffa74e");
+      //.addClass("orange");
+      .css("color","#ffa74e");
     piDigits.slice(3,4)
-      .addClass("white");
-      //.css("color","#ffffff").css("font-size","80px");
+      //.addClass("white");
+      .css("color","#ffffff").css("font-size","80px");
     piDigits.slice(4  )
-      .addClass("blue");
-      //.css("color","#4e4eff");
+      //.addClass("blue");
+      .css("color","#4e4eff");
     piDigits.last()
-      .addClass("hidden");
+      //.addClass("hidden");
+      .css("display","none");
   }
 
 });
