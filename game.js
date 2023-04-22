@@ -11,7 +11,7 @@ let pi = {
   }
 }
 
-const speed=200;
+const speed=2000;
 let finished=true; //Boolean for animations
 
 // This is the a string representing the keys on the keyboard in order
