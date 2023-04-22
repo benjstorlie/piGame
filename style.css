@@ -10,7 +10,7 @@
   --gridGap: 10px;
   --menuW: calc(3* var(--keyW) + 2* var(--gridGap));
   --digitW: 40px;
-  --shift:calc(- var(--digitW));
+  --shift: calc(- var(--digitW)/2);
 }
 
 body {
@@ -28,13 +28,13 @@ header {
   grid-template-columns: repeat(8,var(--digitW));
   grid-template-rows: var(--keyH);
   font-size: 60px;
-  margin-left: calc(50% - 4 * var(--digitW));
-  margin-right: calc(50% - 4 * var(--digitW));;
+  margin: auto;
   position: relative;
   justify-content: center;
   align-items: center;
-  left: calc( var(--digitW)/2);
+  left: 20px;
 }
+
 
 /* All the pi-digits */
 #pi div {
@@ -44,6 +44,7 @@ header {
 }
 
 .orange {
+  font-size: inherit;
   color: #ffa74e;
 }
 
@@ -53,6 +54,7 @@ header {
 }
 
 .blue {
+  font-size: inherit;
   color: #4e4eff;
 }
 
@@ -60,13 +62,6 @@ header {
 See https://api.jquery.com/hidden-selector/ */
 .hidden {
   display: none;
-}
-
-
-.translate {
-  transform: translateX(-40px);
-  transition-property: transform;
-  transition-duration: 200ms;
 }
 
 /* use div>div> to increase the specificity */
@@ -84,6 +79,7 @@ See https://api.jquery.com/hidden-selector/ */
   color: #ff4e4e;
 }
 
+/* This is the class for both the keyboard and the homepage menu */
 .board {
   display: grid;
   grid-template-rows: repeat(4,var(--keyH));

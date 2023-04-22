@@ -12,6 +12,7 @@ let pi = {
 }
 
 const speed=200;
+let finished=true; //Boolean for animations
 
 // This is the a string representing the keys on the keyboard in order
 const keyboardString = "0123456789";
@@ -22,10 +23,12 @@ $(function() {
   const practice = ($("h1").text()=="Pi Game Practice");
   const keyboard = $("#keyboard");
   const piEl = $("#pi");
+  
   const errorBox = $("#error-box");
   
   $("header").append($("<p>You can click the buttons or use your keyboard!</p>"));
-  $("header").append($("<p>Don't go faster than "+speed+"ms per digit though, for now!</p>"));
+
+  piDigitsStylingInit()
 
   for (i=0; i<10; i++) {
     keyboard.append(addKey(i));
@@ -67,43 +70,86 @@ $(function() {
     key.text(keyboardString[i]);
 
     key.click(function() {
+      // finish any running animations
+      piEl.children().add(piEl).finish();
 
-      if ((pi.equals(i))) {
-        pi.plus();
-        // center pi-digit change to orange
-        $("#pi>.white").addClass("orange").removeClass("white");
-        // center right pi-digit change to i and change to white
-        if (practice) {
-          $("#pi>.blue").first().addClass("white").removeClass("blue");
+      if (finished){
+        finished=false;
+        if ((pi.equals(i))) {
+          piShift(i);
         } else {
-          $("#pi>.blue").first().text(i).addClass("white").removeClass("blue");
+
+          // add error mark to error-box
+          errorBox.append("<span>✗</span>");
         }
-        // shift (add class translate from piEl)
-        piEl.addClass("translate");
-          // fade in right-most question mark
-          $("#pi>.blue").last().fadeIn(speed);
-          // fadeout left-most pi-digit
-          $("#pi>.orange").first().fadeOut(speed, function(){
-            // remove left-most now hidden pi-digit
-            $("#pi>.orange").first().remove();
-            // add hidden question mark to right
-            if (practice) {
-              piEl.append($("<div class='blue hidden'></div>").text(pi.nextDigit(3)));
-            } else {
-              piEl.append($("<div class='blue hidden'>?</div>"));
-            }
-            
-            // remove class translate from piEl
-            piEl.removeClass("translate");
-          });
-      } else {
-        // add error mark to error-box
-        errorBox.append("<span>✗</span>");
+        finished=true;
       }
-      
     })
 
     return key;
+  }
+
+  function piShift(i) {
+    // Shift all the digits over, with change in style, and text.
+    const piDigits = piEl.children();
+    piFontSize = piEl.css("font-size");
+
+    // increment pi to next digit
+    pi.plus();
+
+    // add new invisible digit to right
+    newDigit = $("<div>").css("color","#4e4eff").css("display","none")
+    if (practice) {
+      newDigit.text(pi.nextDigit(3));
+    } else {
+      newDigit.text("?");
+      piDigits.eq(4).text(i);
+    }
+    piEl.append(newDigit);
+
+    // Make everything happen with the JQuery .animate method.
+
+    // Shift piEl -- the leftmost digit is still a child
+    piEl
+      .animate({left: '-20px'},speed);
+    // Change colors
+    // Orange #ffa74e = rgb(100,63,31 )
+    // Blue   #4e4eff = rgb(63 ,63,100)
+    piDigits.eq(3)
+      .animate({color: "#ffa74e", fontSize: piFontSize},speed);
+    piDigits.eq(4)
+      .animate({color: "#ffffff", fontSize: "80px"},speed);
+    // fade in right-most question mark
+    piDigits.last()
+      .fadeIn(speed);
+    // fadeout left-most pi-digit
+    piDigits.first()
+      .fadeOut(speed, piReset);
+  }
+
+  function piReset() {
+    // functions to follow the animations
+    // remove left-most now hidden pi-digit
+    piEl.children().first().remove();
+
+    // reset element style attribute
+    piEl.attr("style","");
+  }
+
+  function piDigitsStylingInit() {
+    const piDigits = piEl.children();
+    piDigits.slice(0,3)
+      //.addClass("orange");
+      .css("color","#ffa74e");
+    piDigits.slice(3,4)
+      //.addClass("white");
+      .css("color","#ffffff").css("font-size","80px");
+    piDigits.slice(4  )
+      //.addClass("blue");
+      .css("color","#4e4eff");
+    piDigits.last()
+      //.addClass("hidden");
+      .css("display","none");
   }
 
 });
