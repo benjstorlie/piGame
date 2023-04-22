@@ -28,11 +28,12 @@ header {
   grid-template-columns: repeat(8,var(--digitW));
   grid-template-rows: var(--keyH);
   font-size: 60px;
-  margin: auto;
+  margin-left: calc(50% - 4 * var(--digitW));
+  margin-right: calc(50% - 4 * var(--digitW));;
   position: relative;
   justify-content: center;
   align-items: center;
-  left: 20px;
+  left: calc( var(--digitW)/2);
 }
 
 
